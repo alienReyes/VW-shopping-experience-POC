@@ -884,7 +884,7 @@
             
             <ul class="c-shopping-cart__items-list">
 
-                <cart-item v-on:updatePrice="onClickChild" 
+                <cart-item @updateprice="updatetotal($event,...arguments)" 
                 v-for="item in products"
                 v-bind:item="item">
                 
@@ -894,8 +894,7 @@
 
 
             <div class="c-shopping-cart__total">
-                <p>TOTAL</p>
-                <p class="total-price">${{totalPrice}}.00</p>
+                <h3 class="total-price"> TOTAL  ${{totalPrice}}.00</h3>
 
             </div>
 
@@ -912,20 +911,19 @@
                 <img :src="item.picture" class="product-image" alt="">
          </div>
                 <div class="cart-row__name">
-                    <p>{{item.name}}</p>
+                    <h4>{{item.name}}</h4>
+                    <p class="cart-row__price"> ${{unitPrice}}.00</p>
                 </div>
-                <div class="cart-row__price">
-                    <p> {{unitPrice}}</p>
-                </div>
+                
  
                 <div class="cart-row__quant">
-                    <div> <button @click="incQ">+</button>
+                    <div class="contrl-quant"> <button @click="incQ">+</button>
                         <span>{{quantity}}</span>
                         <button  @click="decQ">-</button>
                     </div>
                    
                 </div>
-                <div class="cart-row__sub-price"><p></p></div>
+               
     </li>
  
    </script>

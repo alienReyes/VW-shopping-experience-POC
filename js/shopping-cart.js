@@ -17,17 +17,21 @@ Vue.component("cart-item", {
   methods: {
     incQ() {
       this.quantity++;
-      this.updateSubTotal();
+      this.updateSubTotal("add");
     },
     decQ() {
       if (this.quantity >= 1) {
         this.quantity--;
-        this.updateSubTotal();
+        this.updateSubTotal("substract");
       }
     },
-    updateSubTotal() {
+    updateSubTotal(flag) {
       this.subTotal = this.unitPrice * this.quantity;
-      this.$emit("updatePrice", this.subTotal);
+      if (this.quantity == 0) {
+        this.subTotal = this.unitPrice;
+        flag = "substract";
+      }
+      this.$emit("updateprice", this.subTotal, flag);
     }
   }
 });
@@ -39,27 +43,31 @@ new Vue({
     products: [
       {
         id: 0,
-        name: "Architect",
+        name: "Vectorworks Architect 2019",
         price: 1600,
         picture: "https://placeimg.com/80/80/any"
       },
       {
         id: 2,
-        name: "spotlight",
+        name: "Vectorworks Landscape 2019 ",
         price: 1700,
         picture: "https://placeimg.com/80/80/any"
       },
       {
         id: 3,
-        name: "landscape",
+        name: "Vectorworks Spotlight 2019",
         price: 150,
         picture: "https://placeimg.com/80/80/any"
       }
     ]
   },
   methods: {
-    onClickChild(value) {
-      console.log(value);
+    updatetotal($event, subprice, flag) {
+      if (flag === "add") {
+        this.totalPrice = this.totalPrice + subprice;
+      } else {
+        this.totalPrice = this.totalPrice - subprice;
+      }
     }
   }
 });
